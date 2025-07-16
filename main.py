@@ -10,12 +10,7 @@ application = FastAPI(
     title="TemplateMicroservice",
 )
 
-setup_app(
-    application,
-    db_url,
-    Path("app") / "routers",
-    ["app.models"]
-)
+tortoise_conf = setup_app(application, db_url, Path("app") / "routers", ["app.models"])
 
 
 if __name__ == "__main__":
