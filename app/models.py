@@ -17,6 +17,7 @@ class Equipment(ExtendedAbstractModel):
     photo_url = fields.CharField(max_length=500, null=True)
     qr_code_data = fields.CharField(max_length=500, null=True)
     metadata = fields.JSONField(null=True)
+    search_vector = fields.TextField(null=True)  # For full text search
 
     type: fields.ForeignKeyRelation["EquipmentType"] = fields.ForeignKeyField(
         "models.EquipmentType", "equipments"
@@ -30,6 +31,9 @@ class Equipment(ExtendedAbstractModel):
 
     class Meta:  # type: ignore
         table = "equipments"
+        indexes = [
+            ("name", "serial_number"),  # Composite index for better search performance
+        ]
 
 
 class EquipmentType(ExtendedAbstractModel):
