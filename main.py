@@ -7,13 +7,13 @@ from fastapi import FastAPI
 from ms_core import setup_app
 
 from app.dependencies import configure_auth
-from app.settings import db_url, logger
+from app.settings import db_url, logger, usersms_url
 
 application = FastAPI(
     title="QSInventory",
 )
 
-configure_auth("http://users_ms:8000", logger=logger)
+configure_auth(usersms_url, logger=logger)
 tortoise_conf = setup_app(
     application, db_url, Path("app") / "routers", ["app.models", "aerich.models"]
 )

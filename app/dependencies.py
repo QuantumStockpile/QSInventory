@@ -295,9 +295,6 @@ def _create_role_checker(
     ) -> TokenIntrospect:
         user = await get_current_user()(token)
         user_role = getattr(user, "role_name", "")
-        #
-        # if user_role == "admin":
-        #     return user
 
         if not role_validator(user_role, required_roles) and user_role != "admin":
             config = _get_config()
